@@ -27,6 +27,7 @@ library
   exposed-modules:
       Lib
       Refined.MatchesRegex
+      Types
   other-modules:
       Paths_haskell_product_rating_analysis
   autogen-modules:
