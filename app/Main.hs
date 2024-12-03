@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Data.Either (partitionEithers)
+import In.CsvParser
 import Lib
 
 main :: IO ()

@@ -1,28 +1,16 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module Lib
-  ( loadPurchases,
-    mostRatedProduct,
+  ( mostRatedProduct,
     bestAverageRatedProduct,
   )
 where
 
-import qualified Data.ByteString.Lazy as BL
-import Data.Csv
 import qualified Data.HashMap.Strict as HM
 import Data.List (maximumBy)
 import Data.Ord (comparing)
-import qualified Data.Vector as V
 import Refined
 import Types
-
-loadPurchases :: FilePath -> IO [Either String Purchase]
-loadPurchases filePath = do
-  csvData <- BL.readFile filePath
-  case decodeByName csvData of
-    Left err -> return [Left err]
-    Right (_, vec) ->
-      return $ map (runParser . parseNamedRecord) (V.toList vec)
 
 mostRatedProduct :: [Purchase] -> Maybe MostRatedProduct
 mostRatedProduct [] = Nothing

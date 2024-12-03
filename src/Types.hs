@@ -4,13 +4,15 @@
 
 module Types
   ( Purchase (..),
+    BuyerId,
+    ShopId,
+    ProductId,
+    Rating,
     MostRatedProduct (..),
     BestAverageRatedProduct (..),
   )
 where
 
-import Data.Bifunctor (first)
-import Data.Csv
 import Refined
 import Refined.MatchesRegex
 
@@ -30,14 +32,6 @@ data Purchase = Purchase
   }
   deriving (Show)
 
-instance FromNamedRecord Purchase where
-  parseNamedRecord r = do
-    bId <- r .: "Buyer Id"
-    sId <- r .: "Shop Id"
-    pId <- r .: "Product Id"
-    rtg <- r .: "Rating"
-    either fail pure $ mkPurchase bId sId pId rtg
-
 data MostRatedProduct = MostRatedProduct
   { productName :: String,
     ratedCount :: Int
@@ -49,12 +43,3 @@ data BestAverageRatedProduct = BestAverageRatedProduct
     averageRating :: Double
   }
   deriving (Show, Eq)
-
-mkPurchase :: String -> String -> String -> Int -> Either String Purchase
-mkPurchase bId sId pId rtg =
-  first show $
-    Purchase
-      <$> refine bId
-      <*> refine sId
-      <*> refine pId
-      <*> refine rtg
