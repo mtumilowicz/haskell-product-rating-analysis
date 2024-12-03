@@ -10,7 +10,3 @@ install:
 script:
   - stack build
   - stack test
-
-cache:
-  directories:
-    - $HOME/.stack
