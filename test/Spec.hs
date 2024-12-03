@@ -7,6 +7,7 @@ module Main (main) where
 import Lib
 import Refined
 import Test.Hspec
+import Types
 
 main :: IO ()
 main = hspec $ do
